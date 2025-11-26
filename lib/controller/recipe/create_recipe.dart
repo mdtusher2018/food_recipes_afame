@@ -10,8 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
 class CreateRecipeController extends GetxController {
-
-
   File? imageFile;
   File? musicFile;
 
@@ -56,7 +54,6 @@ class CreateRecipeController extends GetxController {
     update();
   }
 
-
   void setImage(File file) {
     imageFile = file;
     update();
@@ -91,6 +88,8 @@ class CreateRecipeController extends GetxController {
     }
   }
 
+  RxBool submitting = false.obs;
+
   /// Submit recipe to API
   Future<void> createRecipe({
     required String title,
@@ -103,6 +102,7 @@ class CreateRecipeController extends GetxController {
     required List<Map<String, String>> ingredients,
     required List<String> instructions,
   }) async {
+    submitting.value = true;
     try {
       final uri = Uri.parse('${ApiEndpoints.baseUrl}recipe/create');
       final token = await LocalStorageService().getToken();
@@ -116,37 +116,42 @@ class CreateRecipeController extends GetxController {
         "difficultyLevel": difficulty,
         "origin": origin,
         "description": description,
-        "ingredients": ingredients.map((e) => '${e['quantity']} ${e['name']}').join(', '),
+        "ingredients": ingredients
+            .map((e) => '${e['quantity']} ${e['name']}')
+            .join(', '),
         "instruction": instructions.join(', '),
         "cultureBackground": background,
       };
 
-
       request.fields['data'] = jsonEncode(payload);
 
       if (imageFile != null) {
-        request.files.add(await http.MultipartFile.fromPath('image', imageFile!.path));
+        request.files.add(
+          await http.MultipartFile.fromPath('image', imageFile!.path),
+        );
       }
 
       if (musicFile != null) {
-        request.files.add(await http.MultipartFile.fromPath('music', musicFile!.path));
+        request.files.add(
+          await http.MultipartFile.fromPath('music', musicFile!.path),
+        );
       }
 
       final streamed = await request.send();
       final response = await http.Response.fromStream(streamed);
 
-
       if (response.statusCode == 200) {
         Get.back();
         Get.snackbar('Success', 'Recipe created successfully');
-        
       } else {
         print("Error response: ${response.body}");
         Get.snackbar('Failed', 'Recipe creation failed');
       }
-            log(response.body);
+      log(response.body);
     } catch (e) {
       Get.snackbar('Error', e.toString());
+    } finally {
+      submitting.value = false;
     }
   }
 }

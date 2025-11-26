@@ -1,3 +1,5 @@
+import 'package:food_recipes_afame/utils/helper.dart';
+
 class LoginResponseModel {
   final bool success;
   final int statusCode;
@@ -92,7 +94,7 @@ class UserModel {
       cultureHeritage: json['cultureHeritage'] ?? "",
       favoriteDish: json['favoriteDish'] ?? "",
       pageGoal: json['pageGoal'] ?? "",
-      image: json['image'] ?? "",
+      image: getFullImagePath(json['image'] ?? ""),
     );
   }
 }

@@ -31,7 +31,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           }
 
           if (controller.policyData.value == null) {
-            return const Center(child: Text("No privacy policy found."));
+            return  Center(child: commonText("No privacy policy found."));
           }
 
           return SingleChildScrollView(

@@ -7,6 +7,7 @@ import 'package:food_recipes_afame/view/Profile/profile_view.dart';
 import 'package:food_recipes_afame/view/Recipes/recipe_view.dart';
 import 'package:food_recipes_afame/utils/colors.dart';
 import 'package:food_recipes_afame/utils/image_paths.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 
 class RootView extends StatefulWidget {
   const RootView({super.key});
@@ -170,7 +171,7 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
-                          child: Text(item.label),
+                          child: commonText(item.label),
                         ),
                       ],
                     ),

@@ -18,12 +18,10 @@ class SigninView extends StatefulWidget {
 class _SigninViewState extends State<SigninView> {
   final SigninController controller = Get.put(SigninController());
 
-
   final emailController = TextEditingController(
     text: "amina.rahman@example.com",
   );
   final passwordController = TextEditingController(text: "hello123");
-
 
   @override
   void initState() {
@@ -73,15 +71,21 @@ class _SigninViewState extends State<SigninView> {
                     return Card(
                       margin: const EdgeInsets.symmetric(vertical: 6),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: ListTile(
-                        leading: const Icon(Icons.account_circle_rounded,
-                            color: AppColors.primary, size: 30),
+                        leading: const Icon(
+                          Icons.account_circle_rounded,
+                          color: AppColors.primary,
+                          size: 30,
+                        ),
                         title: commonText(entry.key, size: 14, isBold: true),
-                        subtitle: const Text("••••••••"),
+                        subtitle: commonText("••••••••"),
                         trailing: IconButton(
-                          icon:
-                              const Icon(Icons.delete, color: Colors.redAccent),
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.redAccent,
+                          ),
                           onPressed: () async {
                             await LocalStorageService().removeLogin(entry.key);
                             Navigator.pop(context);
@@ -89,7 +93,10 @@ class _SigninViewState extends State<SigninView> {
                           },
                         ),
                         onTap: () {
-                          controller.login(email: emailController.text.trim(), password: passwordController.text.trim());
+                          controller.login(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          );
                         },
                       ),
                     );
@@ -103,9 +110,6 @@ class _SigninViewState extends State<SigninView> {
       },
     );
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +189,10 @@ class _SigninViewState extends State<SigninView> {
                 commonButton(
                   "Sign In",
                   onTap: () {
-                    controller.login(email: emailController.text.trim(), password: passwordController.text.trim());
+                    controller.login(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                    );
                   },
                 ),
                 const SizedBox(height: 32),

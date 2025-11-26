@@ -83,11 +83,11 @@ class SignUpView extends StatelessWidget {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                          text: "Agree with ",
+                          text: "Agree with ".tr,
                           style: TextStyle(color: Colors.black87, fontSize: 14),
                           children: [
                             TextSpan(
-                              text: "Terms and Conditions",
+                              text: "Terms and Conditions".tr,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,

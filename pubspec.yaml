@@ -47,7 +47,13 @@ dependencies:
   socket_io: ^1.0.1
   socket_io_client: ^1.0.2
   flutter_stripe: ^11.5.0
+  launcher_name: ^1.0.2
+  flutter_launcher_icons: "^0.14.4"
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +83,7 @@ flutter:
     - assets/icons/authentication/
     - assets/icons/navigation/
     - assets/icons/profile/
+    - lib/localization/
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

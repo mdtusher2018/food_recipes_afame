@@ -2,7 +2,7 @@ class ApiEndpoints {
   static const String baseUrl =
       'https://api.mamafefood.com/api/v1/'; // Replace with actual base URL
   static const String baseImageUrl =
-      'https://api.mamafefood.com/'; // Replace with actual base image URL
+      'https://api.mamafefood.com'; // Replace with actual base image URL
 
   // Auth Endpoints
   static const String register = 'auth/register';
@@ -63,92 +63,75 @@ class ApiEndpoints {
   static const String addToFavorite = 'recipe/add_favorite';
   static const String updateRecipe =
       'recipe/update/'; // Append recipe ID dynamically
-static String allRecipes({
-  int? page,
-  int? limit,
-  String? searchTerm,
-  String? origin,
-  String? difficultyLevel,
-  String? sort,
-}) {
-  final queryParams = {
-    if (page != null) 'page': '$page',
-    if (limit != null) 'limit': '$limit',
-    if (searchTerm != null && searchTerm.isNotEmpty) 'searchTerm': searchTerm,
-    if (origin != null && origin.isNotEmpty) 'origin': origin,
-    if (difficultyLevel != null && difficultyLevel.isNotEmpty)
-      'filter': difficultyLevel,
-    if (sort != null && sort.isNotEmpty) 'sort': sort,
-  };
+  static String allRecipes({
+    int? page,
+    int? limit,
+    String? searchTerm,
+    String? origin,
+    String? difficultyLevel,
+    String? sort,
+  }) {
+    final queryParams = {
+      if (page != null) 'page': '$page',
+      if (limit != null) 'limit': '$limit',
+      if (searchTerm != null && searchTerm.isNotEmpty) 'searchTerm': searchTerm,
+      if (origin != null && origin.isNotEmpty) 'origin': origin,
+      if (difficultyLevel != null && difficultyLevel.isNotEmpty)
+        'filter': difficultyLevel,
+      if (sort != null && sort.isNotEmpty) 'sort': sort,
+    };
 
-  final uri = Uri(
-    path: 'recipe',
-    queryParameters: queryParams,
-  );
+    final uri = Uri(path: 'recipe', queryParameters: queryParams);
 
-  return uri.toString(); // Output: recipe?page=1&limit=10&searchTerm=Sushi
-}
+    return uri.toString(); // Output: recipe?page=1&limit=10&searchTerm=Sushi
+  }
 
+  static String myFavoriteRecipe({
+    int? page,
+    int? limit,
+    String? searchTerm,
+    String? origin,
+    String? difficultyLevel,
+    String? sort,
+  }) {
+    final queryParams = {
+      if (page != null) 'page': '$page',
+      if (limit != null) 'limit': '$limit',
+      if (searchTerm != null && searchTerm.isNotEmpty) 'searchTerm': searchTerm,
+      if (origin != null && origin.isNotEmpty) 'origin': origin,
+      if (difficultyLevel != null && difficultyLevel.isNotEmpty)
+        'filter': difficultyLevel,
+      if (sort != null && sort.isNotEmpty) 'sort': sort,
+    };
 
+    final uri = Uri(path: 'recipe/favorite', queryParameters: queryParams);
 
-
-static String myFavoriteRecipe({
-  int? page,
-  int? limit,
-  String? searchTerm,
-  String? origin,
-  String? difficultyLevel,
-  String? sort,
-}) {
-  final queryParams = {
-    if (page != null) 'page': '$page',
-    if (limit != null) 'limit': '$limit',
-    if (searchTerm != null && searchTerm.isNotEmpty) 'searchTerm': searchTerm,
-    if (origin != null && origin.isNotEmpty) 'origin': origin,
-    if (difficultyLevel != null && difficultyLevel.isNotEmpty)
-      'filter': difficultyLevel,
-    if (sort != null && sort.isNotEmpty) 'sort': sort,
-  };
-
-  final uri = Uri(
-    path: 'recipe/favorite',
-    queryParameters: queryParams,
-  );
-
-  return uri.toString(); // Output: recipe?page=1&limit=10&searchTerm=Sushi
-}
-
-
+    return uri.toString(); // Output: recipe?page=1&limit=10&searchTerm=Sushi
+  }
 
   static String singleRecipe(String id) => 'recipe/$id';
   static const String recipeTending = "recipe/tending";
   static const String recipeWithHeritage = 'recipe/recommended';
   static const String recommendedRecipe =
       'recipe?sort=-clickCount&page=1&limit=4';
-static const String myRecipes = 'users/my_recipe';
+  static const String myRecipes = 'users/my_recipe';
 
   static const String removeFavorite = 'recipe/remove_favorite';
   static const String removeRecipe = 'recipe'; // Append recipe ID dynamically
 
-
   // Blog Endpoints
   static const String createBlog = 'blog/create';
-static String getBlogs({int? page, int? limit}) {
-
-    final queryParams= {
+  static String getBlogs({int? page, int? limit}) {
+    final queryParams = {
       if (page != null) 'page': '$page',
       if (limit != null) 'limit': '$limit',
     };
-  
 
-  final uri = Uri(
-    path: '/blog',
-    queryParameters: queryParams,
-  );
+    final uri = Uri(path: '/blog', queryParameters: queryParams);
 
+    return uri.toString();
+  }
 
-  return uri.toString();
-}
   static const String updateBlog = 'blog/'; // Append blog ID dynamically
   static const String deleteBlog = 'blog/';
 
@@ -156,5 +139,6 @@ static String getBlogs({int? page, int? limit}) {
   static const String notifications = 'notification';
 
   //payment Endpoints
-  static const String purchaseFreeSubscription = 'payment/purchase_free_subscription';
+  static const String purchaseFreeSubscription =
+      'payment/purchase_free_subscription';
 }

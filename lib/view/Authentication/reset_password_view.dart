@@ -32,15 +32,15 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             Image.asset(ImagePaths.resetPageImage),
             const SizedBox(height: 10),
             RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: "Now Reset Your ",
+                    text: "Now Reset Your ".tr,
                     style: TextStyle(color: AppColors.black),
                   ),
                   TextSpan(
-                    text: "Password",
+                    text: "Password".tr,
                     style: TextStyle(color: AppColors.primary),
                   ),
                   TextSpan(

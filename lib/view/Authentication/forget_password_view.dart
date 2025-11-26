@@ -26,15 +26,15 @@ class ForgotPasswordView extends StatelessWidget {
             Image.asset(ImagePaths.forgetPageImage),
             const SizedBox(height: 10),
             RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: "Forget Your ",
+                    text: "Forget Your ".tr,
                     style: TextStyle(color: AppColors.black),
                   ),
                   TextSpan(
-                    text: "Password",
+                    text: "Password".tr,
                     style: TextStyle(color: AppColors.primary),
                   ),
                   TextSpan(text: "?", style: TextStyle(color: Colors.black)),

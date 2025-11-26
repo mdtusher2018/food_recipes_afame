@@ -1,3 +1,5 @@
+import 'package:food_recipes_afame/utils/helper.dart';
+
 class ProfileUpdatedResponseModel {
   final bool success;
   final int statusCode;
@@ -84,7 +86,7 @@ class ProfileData {
       cultureHeritage: json['cultureHeritage'] ?? '',
       favoriteDish: json['favoriteDish'] ?? '',
       pageGoal: json['pageGoal'] ?? '',
-      image: json['image'] ?? '',
+      image: getFullImagePath(json['image'] ?? ''),
       phone: json['phone'] ?? '',
     );
   }

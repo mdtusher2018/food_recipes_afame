@@ -4,6 +4,7 @@ import 'package:food_recipes_afame/view/Authentication/signup_view.dart';
 import 'package:food_recipes_afame/utils/colors.dart';
 import 'package:food_recipes_afame/utils/image_paths.dart';
 import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class RoleChooseView extends StatelessWidget {
   const RoleChooseView({super.key});
@@ -62,9 +63,7 @@ class RoleChooseView extends StatelessWidget {
                           color: Colors.white70,
                         ),
                         children: [
-                          const TextSpan(
-                            text: "Now continue after register in ",
-                          ),
+                          TextSpan(text: "Now continue after register in ".tr),
                           TextSpan(
                             text: "“Mamafé”.",
                             style: const TextStyle(

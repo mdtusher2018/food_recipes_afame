@@ -10,7 +10,7 @@ class TermsAndConditonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       final controller = Get.put(TremsAndConditionController());
+    final controller = Get.put(TremsAndConditionController());
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -22,7 +22,7 @@ class TermsAndConditonScreen extends StatelessWidget {
           child: Icon(Icons.arrow_back),
         ),
       ),
-   backgroundColor: AppColors.white,
+      backgroundColor: AppColors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Obx(() {
@@ -31,15 +31,13 @@ class TermsAndConditonScreen extends StatelessWidget {
           }
 
           if (controller.policyData.value == null) {
-            return const Center(child: Text("No Terms & Policies found."));
+            return Center(child: commonText("No Terms & Policies found."));
           }
 
           return SingleChildScrollView(
             child: Html(
               data: controller.policyData.value!.content,
-              style: {
-                "body": Style(fontSize: FontSize.medium),
-              },
+              style: {"body": Style(fontSize: FontSize.medium)},
             ),
           );
         }),

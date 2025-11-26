@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/controller/favorite/add_favorite_controller.dart';
 import 'package:food_recipes_afame/controller/home/recipe_details_controller.dart';
 import 'package:food_recipes_afame/utils/colors.dart';
-import 'package:food_recipes_afame/utils/image_paths.dart';
 import 'package:food_recipes_afame/view/root_view.dart';
 import 'package:food_recipes_afame/view/shared/commonDesigns.dart';
 import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
@@ -19,8 +17,6 @@ class RecipeDetailsView extends StatefulWidget {
 }
 
 class _RecipeDetailsViewState extends State<RecipeDetailsView> {
-
-
   @override
   Widget build(BuildContext context) {
     final RecipeDetailController controller = Get.put(
@@ -39,7 +35,10 @@ class _RecipeDetailsViewState extends State<RecipeDetailsView> {
               Stack(
                 children: [
                   Image.network(
-                    controller.recipeDetail.value!.image,  errorBuilder: (context, error, stackTrace) => commonImageErrorWidget(),
+                    controller.recipeDetail.value!.image,
+                    errorBuilder:
+                        (context, error, stackTrace) =>
+                            commonImageErrorWidget(),
                     width: double.infinity,
                     height: 280,
                     fit: BoxFit.cover,
@@ -78,15 +77,14 @@ class _RecipeDetailsViewState extends State<RecipeDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Top labels
-                        Row(
-                          children: [
-                            Image.asset(ImagePaths.musicIcon, scale: 3),
-                            const SizedBox(width: 6),
-                            commonText("Food Music", size: 14),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-
+                        // Row(
+                        //   children: [
+                        //     Image.asset(ImagePaths.musicIcon, scale: 3),
+                        //     const SizedBox(width: 6),
+                        //     commonText("Food Music", size: 14),
+                        //   ],
+                        // ),
+                        // const SizedBox(height: 8),
                         commonText(
                           controller.recipeDetail.value!.recipeName,
                           size: 22,
@@ -278,24 +276,47 @@ class _RecipeDetailsViewState extends State<RecipeDetailsView> {
                             separatorBuilder:
                                 (_, __) => const SizedBox(width: 12),
                             itemBuilder: (context, index) {
-                            
                               return SizedBox(
                                 width: 180,
                                 child: RecipeCard(
-                                  imageUrl: controller.relatedRecipes[index].image,
-                                  region: controller.relatedRecipes[index].origin,
-                                  title: controller.relatedRecipes[index].recipeName,
-                                  time: controller.relatedRecipes[index].createdAt.toString(),
-                                  difficulty: controller.relatedRecipes[index].difficultyLevel,
-                                  isFavorite: controller.relatedRecipes[index].isFavorite,
+                                  imageUrl:
+                                      controller.relatedRecipes[index].image,
+                                  region:
+                                      controller.relatedRecipes[index].origin,
+                                  title:
+                                      controller
+                                          .relatedRecipes[index]
+                                          .recipeName,
+                                  time:
+                                      controller.relatedRecipes[index].createdAt
+                                          .toString(),
+                                  difficulty:
+                                      controller
+                                          .relatedRecipes[index]
+                                          .difficultyLevel,
+                                  isFavorite:
+                                      controller
+                                          .relatedRecipes[index]
+                                          .isFavorite,
                                   onFavoriteTap: () {
-                                  Get.put(FavoriteRecipeController()).addRecipeToFavorites(controller.relatedRecipes[index].id,controller.relatedRecipes[index].isFavorite).then((value) {
-              if(value){
-              setState(() {
-                controller.relatedRecipes[index].isFavorite =!controller.relatedRecipes[index].isFavorite ;
-              });
-                }
-              },);
+                                    Get.put(FavoriteRecipeController())
+                                        .addRecipeToFavorites(
+                                          controller.relatedRecipes[index].id,
+                                          controller
+                                              .relatedRecipes[index]
+                                              .isFavorite,
+                                        )
+                                        .then((value) {
+                                          if (value) {
+                                            setState(() {
+                                              controller
+                                                  .relatedRecipes[index]
+                                                  .isFavorite = !controller
+                                                      .relatedRecipes[index]
+                                                      .isFavorite;
+                                            });
+                                          }
+                                        });
                                   },
                                   onTap: () {
                                     navigateToPage(
@@ -319,8 +340,10 @@ class _RecipeDetailsViewState extends State<RecipeDetailsView> {
                             child: Column(
                               children: [
                                 Image.network(
-                                    controller.imageUrl.value,
-          errorBuilder: (context, error, stackTrace) => commonImageErrorWidget(),
+                                  controller.imageUrl.value,
+                                  errorBuilder:
+                                      (context, error, stackTrace) =>
+                                          commonImageErrorWidget(),
                                   height: 160,
                                   width: double.infinity,
                                   fit: BoxFit.cover,
@@ -348,8 +371,11 @@ class _RecipeDetailsViewState extends State<RecipeDetailsView> {
                                     ),
                                     boarderRadious: 16.0,
                                     onTap: () {
-                                      RootView.currentIndex=1;
-                                      navigateToPage(RootView(),clearStack: true);
+                                      RootView.currentIndex = 1;
+                                      navigateToPage(
+                                        RootView(),
+                                        clearStack: true,
+                                      );
                                     },
                                   ),
                                 ),

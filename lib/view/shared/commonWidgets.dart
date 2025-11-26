@@ -14,7 +14,7 @@ Widget commonText(
   TextAlign textAlign = TextAlign.left,
 }) {
   return Text(
-    text,
+    text.tr,
     overflow: TextOverflow.ellipsis,
     maxLines: maxline,
     softWrap: softwarp,
@@ -112,7 +112,7 @@ Widget commonTextfieldWithTitle(
               obscureText: isPasswordVisible,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(12.0),
-                hintText: hintText,
+                hintText: hintText.tr,
                 fillColor: AppColors.white,
                 filled: true,
                 hintStyle: TextStyle(fontSize: 14, color: AppColors.gray),
@@ -361,7 +361,7 @@ Widget commonNumberInputField({
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: hintText,
+                  hintText: hintText.tr,
                   hintStyle: const TextStyle(color: Colors.grey),
                   isCollapsed: true,
                   contentPadding: const EdgeInsets.symmetric(vertical: 8),
@@ -424,7 +424,7 @@ Widget commonTextField({
       style: const TextStyle(fontSize: 14),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.zero,
-        hintText: hintText,
+        hintText: hintText?.tr,
         hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
         filled: true,
         fillColor: Colors.white,

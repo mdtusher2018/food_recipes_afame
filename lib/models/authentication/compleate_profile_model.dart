@@ -1,3 +1,5 @@
+import 'package:food_recipes_afame/utils/helper.dart';
+
 class CompleteProfileResponseModel {
   final bool success;
   final int statusCode;
@@ -57,7 +59,7 @@ class ProfileData {
       favoriteDish: json['favoriteDish'],
       pageGoal: json['pageGoal'],
       cookingFrequency: json['cookingFrequency'],
-      image: json['image'] ?? '',
+      image: getFullImagePath(json['image'] ?? ''),
     );
   }
 }

@@ -25,19 +25,19 @@ class OtpVerifyView extends StatelessWidget {
               Image.asset(ImagePaths.verificationPageImage),
               const SizedBox(height: 10),
               RichText(
-                text: const TextSpan(
+                text:  TextSpan(
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
-                      text: "Enter ",
+                      text: "Enter ".tr,
                       style: TextStyle(color: Colors.black),
                     ),
                     TextSpan(
-                      text: "Verification",
+                      text: "Verification".tr,
                       style: TextStyle(color: AppColors.primary),
                     ),
                     TextSpan(
-                      text: " Code.",
+                      text: " Code.".tr,
                       style: TextStyle(color: Colors.black),
                     ),
                   ],

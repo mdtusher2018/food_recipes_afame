@@ -53,7 +53,10 @@ class RecipeCard extends StatelessWidget {
                     topRight: Radius.circular(20),
                   ),
                   child: Image.network(
-                    imageUrl,  errorBuilder: (context, error, stackTrace) => commonImageErrorWidget(),
+                    imageUrl,
+                    errorBuilder:
+                        (context, error, stackTrace) =>
+                            commonImageErrorWidget(),
                     height: 120,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -129,25 +132,23 @@ class RecipeCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.yellow.shade100,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: commonText(
-                              difficulty,
-                              size: 14,
-                              isBold: true,
-                            ),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
                           ),
-                        ],
+                          decoration: BoxDecoration(
+                            color: Colors.yellow.shade100,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: commonText(
+                            difficulty,
+                            maxline: 1,
+                            size: 14,
+                            isBold: true,
+                          ),
+                        ),
                       ),
                     ],
                   ),

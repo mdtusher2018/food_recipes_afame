@@ -58,9 +58,7 @@ class UserData {
       phone: json['phone'],
       role: json['role'],
       status: json['status'],
-      image: getFullImagePath(
-        json['image'] ?? "https://via.placeholder.com/150",
-      ),
+      image: getFullImagePath(json['image'] ?? ""),
       cookingFrequency: json['cookingFrequency'],
       cultureHeritage: json['cultureHeritage'],
       favoriteDish: json['favoriteDish'],

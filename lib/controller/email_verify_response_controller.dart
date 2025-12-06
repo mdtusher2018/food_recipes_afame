@@ -5,7 +5,7 @@ import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/compleate_question_view.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
+
 import 'package:get/get.dart';
 
 class EmailVerifyController extends GetxController {
@@ -34,9 +34,9 @@ class EmailVerifyController extends GetxController {
     final otp = getOtp();
 
     if (otp.length != 4) {
-      commonSnackbar(
-        title: "Invalid OTP",
-        message: "Please enter a valid 4-digit OTP",
+      Get.snackbar(
+         "Invalid OTP",
+         "Please enter a valid 4-digit OTP",
         backgroundColor: Colors.red,
       );
       return;
@@ -60,32 +60,32 @@ class EmailVerifyController extends GetxController {
       final verifyResponse = EmailVerifyResponseModel.fromJson(response);
 
       if (verifyResponse.success) {
-        commonSnackbar(
-          title: "Success",
-          message: verifyResponse.message,
+        Get.snackbar(
+           "Success",
+           verifyResponse.message,
           backgroundColor: Colors.green,
         );
         await LocalStorageService().saveToken(verifyResponse.token);
         await LocalStorageService().saveName(verifyResponse.data.name);
         Get.to(() => CompleateQuestionnaireFlow(fromSignup: true));
       } else {
-        commonSnackbar(
-          title: "Failed",
-          message: verifyResponse.message,
+        Get.snackbar(
+           "Failed",
+           verifyResponse.message,
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
       if (e is ApiException) {
-        commonSnackbar(
-          title: "Verification Failed",
-          message: e.message,
+        Get.snackbar(
+           "Verification Failed",
+           e.message,
           backgroundColor: Colors.red,
         );
       } else {
-        commonSnackbar(
-          title: "Error",
-          message: "Something went wrong",
+        Get.snackbar(
+           "Error",
+           "Something went wrong",
           backgroundColor: Colors.red,
         );
       }
@@ -110,29 +110,29 @@ class EmailVerifyController extends GetxController {
 
       final resendresponse = OtpResendResponseModel.fromJson(response);
       if (resendresponse.success) {
-        commonSnackbar(
-          title: "Success",
-          message: "OTP sent successfully",
+        Get.snackbar(
+           "Success",
+           "OTP sent successfully",
           backgroundColor: Colors.green,
         );
       } else {
-        commonSnackbar(
-          title: "Failed",
-          message: "Unknown Error Occourd",
+        Get.snackbar(
+           "Failed",
+           "Unknown Error Occourd",
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
       if (e is ApiException) {
-        commonSnackbar(
-          title: "Failed",
-          message: e.message,
+        Get.snackbar(
+           "Failed",
+           e.message,
           backgroundColor: Colors.red,
         );
       } else {
-        commonSnackbar(
-          title: "Error",
-          message: "Something went wrong",
+        Get.snackbar(
+           "Error",
+           "Something went wrong",
           backgroundColor: Colors.red,
         );
       }

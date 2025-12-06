@@ -36,26 +36,7 @@ Widget commonText(
   );
 }
 
-void commonSnackbar({
-  required String title,
-  required String message,
-  Color backgroundColor = Colors.black,
-  Color textColor = Colors.white,
-  SnackPosition position = SnackPosition.TOP,
-  Duration duration = const Duration(seconds: 3),
-}) {
-  Get.snackbar(
-    title,
-    message,
-    backgroundColor: backgroundColor,
-    colorText: textColor,
-    snackPosition: position,
-    duration: duration,
-    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-    borderRadius: 8,
-    isDismissible: true,
-  );
-}
+
 
 Widget commonTextfieldWithTitle(
   String title,

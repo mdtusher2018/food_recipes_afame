@@ -13,17 +13,16 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.isLoading.value) {
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      }
-
-      return Scaffold(
-        backgroundColor: AppColors.primary,
-        appBar: authAppBar("Create Account"),
-        bottomSheet: SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: AppColors.primary,
+      appBar: authAppBar("Create Account"),
+      bottomSheet: SizedBox(
+        height: double.infinity,
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,9 +122,9 @@ class SignUpView extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
-      );
-    });
+          );
+        }),
+      ),
+    );
   }
 }

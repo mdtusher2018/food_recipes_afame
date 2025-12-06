@@ -3,7 +3,6 @@ import 'package:food_recipes_afame/models/profile/change_password_model.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 
 class ChangePasswordController extends GetxController {
   final oldPasswordController = TextEditingController();
@@ -22,12 +21,12 @@ class ChangePasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (oldPassword.isEmpty || newPassword.isEmpty || confirmPassword.isEmpty) {
-      commonSnackbar(title: "Error", message: "All fields are required");
+      Get.snackbar("Error", "All fields are required");
       return;
     }
 
     if (newPassword != confirmPassword) {
-      commonSnackbar(title: "Error", message: "New passwords do not match");
+      Get.snackbar("Error", "New passwords do not match");
       return;
     }
 
@@ -44,16 +43,12 @@ class ChangePasswordController extends GetxController {
 
       if (result.success) {
         Get.back();
-        commonSnackbar(
-          title: "Success",
-          message: result.message,
-          backgroundColor: Colors.green,
-        );
+        Get.snackbar("Success", result.message, backgroundColor: Colors.green);
       } else {
         throw result.message;
       }
     } catch (e) {
-      commonSnackbar(title: "Error", message: e.toString());
+      Get.snackbar("Error", e.toString());
     } finally {
       isLoading.value = false;
     }

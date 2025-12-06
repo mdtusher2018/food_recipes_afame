@@ -113,31 +113,30 @@ class _SigninViewState extends State<SigninView> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.isLoading.value) {
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      }
-
-      return Scaffold(
+    return Scaffold(
+      backgroundColor: AppColors.primary,
+      appBar: AppBar(
         backgroundColor: AppColors.primary,
-        appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Get.back(),
-          ),
-          title: commonText(
-            "Sign In to Your Account",
-            size: 20,
-            isBold: true,
-            color: Colors.white,
-          ),
-          centerTitle: true,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Get.back(),
         ),
-        bottomSheet: SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(
+        title: commonText(
+          "Sign In to Your Account",
+          size: 20,
+          isBold: true,
+          color: Colors.white,
+        ),
+        centerTitle: true,
+      ),
+      bottomSheet: SizedBox(
+        height: double.infinity,
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,9 +215,9 @@ class _SigninViewState extends State<SigninView> {
                 ),
               ],
             ),
-          ),
-        ),
-      );
-    });
+          );
+        }),
+      ),
+    );
   }
 }

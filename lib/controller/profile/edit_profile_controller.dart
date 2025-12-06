@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/models/profile/profile_update_model.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -33,16 +32,17 @@ class EditProfileController extends GetxController {
     final phone = phoneController.text.trim();
 
     if (name.isEmpty || phone.isEmpty) {
-      commonSnackbar(
-        title: 'Validation Error',
-        message: 'All fields are required',
+      Get.snackbar(
+         'Validation Error',
+         'All fields are required',
       );
       return;
     }
-     if(phone.length < 10 || phone.length > 15){
-      commonSnackbar(
-        title: 'Validation Error',
-        message: 'Phone number must be at least 10 digits and at most 15 digits',
+    if (phone.length < 10 || phone.length > 15) {
+      Get.snackbar(
+         'Validation Error',
+        
+            'Phone number must be at least 10 digits and at most 15 digits',
       );
       return;
     }
@@ -79,9 +79,9 @@ class EditProfileController extends GetxController {
           responseData,
         );
         Get.back();
-        commonSnackbar(
-          title: "Success",
-          message: updatedProfile.message,
+        Get.snackbar(
+           "Success",
+           updatedProfile.message,
           backgroundColor: Colors.green,
         );
       } else {
@@ -89,7 +89,7 @@ class EditProfileController extends GetxController {
       }
     } catch (e) {
       log(e.toString());
-      commonSnackbar(title: "Error", message: e.toString());
+      Get.snackbar( "Error",  e.toString());
     } finally {
       isLoading.value = false;
     }

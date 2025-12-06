@@ -6,7 +6,7 @@ import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/signin_view.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
+
 
 class ResetPasswordController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -27,27 +27,27 @@ class ResetPasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (newPassword.isEmpty || confirmPassword.isEmpty) {
-      commonSnackbar(
-        title: 'Validation Error',
-        message: 'Please fill in both fields.',
+      Get.snackbar(
+         'Validation Error',
+         'Please fill in both fields.',
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (newPassword.length < 6 || newPassword.length > 8) {
-      commonSnackbar(
-        title: 'Invalid Password',
-        message: 'Password must be 6 to 8 characters.',
+      Get.snackbar(
+         'Invalid Password',
+         'Password must be 6 to 8 characters.',
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (newPassword != confirmPassword) {
-      commonSnackbar(
-        title: 'Mismatch',
-        message: 'Passwords do not match.',
+      Get.snackbar(
+         'Mismatch',
+         'Passwords do not match.',
         backgroundColor: Colors.red,
       );
       return;
@@ -71,23 +71,23 @@ class ResetPasswordController extends GetxController {
       final resetResponse = ResetPasswordResponseModel.fromJson(response);
 
       if (resetResponse.success) {
-        commonSnackbar(
-          title: 'Success',
-          message: resetResponse.message,
+        Get.snackbar(
+           'Success',
+           resetResponse.message,
           backgroundColor: Colors.green,
         );
         Get.offAll(() => SigninView());
       } else {
-        commonSnackbar(
-          title: 'Failed',
-          message: resetResponse.message,
+        Get.snackbar(
+           'Failed',
+           resetResponse.message,
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
-      commonSnackbar(
-        title: 'Error',
-        message: e.toString(),
+      Get.snackbar(
+         'Error',
+         e.toString(),
         backgroundColor: Colors.red,
       );
     } finally {

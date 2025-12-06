@@ -22,7 +22,6 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   bool isMonthlySelected = true;
   final subscriptionController = Get.put(SubscriptionController());
 
-
   void togglePlan(bool monthly) {
     setState(() {
       isMonthlySelected = monthly;
@@ -147,7 +146,6 @@ class _SubscriptionViewState extends State<SubscriptionView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -290,83 +288,94 @@ class _SubscriptionViewState extends State<SubscriptionView> {
             //     ],
             //   ),
             // ),
-          
-          Expanded(
-  child: Obx(() {
-    if (subscriptionController.isLoading.value) {
-      return Center(child: CircularProgressIndicator());
-    }
+            Expanded(
+              child: Obx(() {
+                if (subscriptionController.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-    final filteredPlans = subscriptionController.subscriptions
-        .where((plan) =>
-            isMonthlySelected
-                ? plan.planCategory == 'monthly'
-                : plan.planCategory == 'yearly')
-        .toList();
+                final filteredPlans =
+                    subscriptionController.subscriptions
+                        .where(
+                          (plan) =>
+                              isMonthlySelected
+                                  ? plan.planCategory == 'monthly'
+                                  : plan.planCategory == 'yearly',
+                        )
+                        .toList();
 
-    return ListView.builder(
-      itemCount: filteredPlans.length,
-      itemBuilder: (context, index) {
-        final plan = filteredPlans[index];
+                return ListView.builder(
+                  itemCount: filteredPlans.length,
+                  itemBuilder: (context, index) {
+                    final plan = filteredPlans[index];
 
-        return buildPlanCard(
-          title: plan.planName,
-          subtitle: plan.shortBio,
-          price:  "€${plan.price} / ${plan.timeline} days",
-          features: plan.facilities,
-          isMostPopular: plan.planName.toLowerCase() == "premium",
-          backgroundColor: plan.planName.toLowerCase() == "premium"
-              ? Colors.yellow.shade50
-              : Colors.white,
-          borderColor: plan.planName.toLowerCase() == "premium"
-              ? AppColors.primary
-              : Colors.grey.shade300,
-          button: commonButton(
-            plan.price == 0 ? "Start Free" : "Subscribe Now",
-            onTap: () async{
-              if (widget.fromSignup || plan.price == 0) {
-                
-                Get.put(SubscriptionPurchaseController()).purchaseSubscription(plan.id).then(
-                  (value) {
-                    if(value && widget.fromSignup){ navigateToPage(RootView());}
+                    return buildPlanCard(
+                      title: plan.planName,
+                      subtitle: plan.shortBio,
+                      price: "€${plan.price} / ${plan.timeline} days",
+                      features: plan.facilities,
+                      isMostPopular: plan.planName.toLowerCase() == "premium",
+                      backgroundColor:
+                          plan.planName.toLowerCase() == "premium"
+                              ? Colors.yellow.shade50
+                              : Colors.white,
+                      borderColor:
+                          plan.planName.toLowerCase() == "premium"
+                              ? AppColors.primary
+                              : Colors.grey.shade300,
+                      button: commonButton(
+                        plan.price == 0 ? "Start Free" : "Subscribe Now",
+                        onTap: () async {
+                          if (widget.fromSignup || plan.price == 0) {
+                            Get.put(
+                              SubscriptionPurchaseController(),
+                            ).purchaseSubscription(plan.id).then((value) {
+                              if (value && widget.fromSignup) {
+                                navigateToPage(RootView());
+                              }
+                            });
+                          } else {
+                            String userId =
+                                await LocalStorageService().getUserId() ?? "";
+                            startCardPayment(
+                              context: context,
+                              amount: plan.price.toString(),
+                              currency: "EUR",
+                              subscriptionId: plan.id,
+                              userId: userId,
+                            ).then((value) {
+                              // if (paymentId != null) {
+                              //   // Get.put(SubscriptionPurchaseController())
+                              //   //     .purchaseSubscription(plan.id);
+                              // } else {
+                              //   Get.snackbar(
+                              //     title: "Payment Failed",
+                              //     message: "Please try again.",
+                              //   );
+                              // }
+                              if (value && widget.fromSignup) {
+                                navigateToPage(RootView());
+                              }
+                            });
+                          }
+                        },
+                      ),
+                      bottomWidget:
+                          plan.price == 0
+                              ? null
+                              : Center(
+                                child: commonText(
+                                  "No commitment. Cancel anytime.",
+                                  size: 12,
+                                  color: Colors.black54,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                    );
                   },
                 );
-                
-              } else {
-                String userId= await LocalStorageService().getUserId()??"";
-                startCardPayment(context: context, amount: plan.price.toString(), currency: "EUR",subscriptionId: plan.id,userId:userId)
-                    .then((value) {
-                  // if (paymentId != null) {
-                  //   // Get.put(SubscriptionPurchaseController())
-                  //   //     .purchaseSubscription(plan.id);
-                  // } else {
-                  //   commonSnackbar(
-                  //     title: "Payment Failed",
-                  //     message: "Please try again.",
-                  //   );
-                  // }
-                 if(value && widget.fromSignup){ navigateToPage(RootView());}
-                });
-              }
-            },
-          ),
-          bottomWidget: plan.price == 0
-              ? null
-              : Center(
-                  child: commonText(
-                    "No commitment. Cancel anytime.",
-                    size: 12,
-                    color: Colors.black54,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-        );
-      },
-    );
-  }),
-),
-
-          
+              }),
+            ),
           ],
         ),
       ),

@@ -5,7 +5,6 @@ import 'package:food_recipes_afame/services/local_storage_service.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/email_verify_view.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 
 class SignupController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -48,54 +47,54 @@ class SignupController extends GetxController {
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      commonSnackbar(
-        title: "Validation Error",
-        message: "All fields are required",
+      Get.snackbar(
+        "Validation Error",
+        "All fields are required",
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (fullName.length < 3) {
-      commonSnackbar(
-        title: "Validation Error",
-        message: "Full name must be at least 3 characters",
+      Get.snackbar(
+        "Validation Error",
+        "Full name must be at least 3 characters",
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (!_isValidEmail(email)) {
-      commonSnackbar(
-        title: "Validation Error",
-        message: "Invalid email format",
+      Get.snackbar(
+        "Validation Error",
+        "Invalid email format",
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (password.length < 8) {
-      commonSnackbar(
-        title: "Validation Error",
-        message: "Password must be at least 8 characters",
+      Get.snackbar(
+        "Validation Error",
+        "Password must be at least 8 characters",
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (password != confirmPassword) {
-      commonSnackbar(
-        title: "Validation Error",
-        message: "Passwords do not match",
+      Get.snackbar(
+        "Validation Error",
+        "Passwords do not match",
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (!isTermsAccepted.value) {
-      commonSnackbar(
-        title: "Terms Not Accepted",
-        message: "You must agree with Terms and Conditions",
+      Get.snackbar(
+        "Terms Not Accepted",
+        "You must agree with Terms and Conditions",
         backgroundColor: Colors.red,
       );
       return;
@@ -120,15 +119,11 @@ class SignupController extends GetxController {
       Get.to(() => EmailVerifyView());
     } catch (e) {
       if (e is ApiException) {
-        commonSnackbar(
-          title: "Signup Failed",
-          message: e.message,
-          backgroundColor: Colors.red,
-        );
+        Get.snackbar("Signup Failed", e.message, backgroundColor: Colors.red);
       } else {
-        commonSnackbar(
-          title: "Error",
-          message: "Something went wrong",
+        Get.snackbar(
+          "Error",
+          "Something went wrong",
           backgroundColor: Colors.red,
         );
       }

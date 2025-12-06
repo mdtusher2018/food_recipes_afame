@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/verify_otp_view.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
+
 
 class ForgotPasswordController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -18,9 +18,9 @@ class ForgotPasswordController extends GetxController {
     final email = emailController.text.trim();
 
     if (email.isEmpty || !email.contains("@")) {
-      commonSnackbar(
-        title: "Validation Error",
-        message: "Please enter a valid email",
+      Get.snackbar(
+         "Validation Error",
+         "Please enter a valid email",
         backgroundColor: Colors.red,
       );
       return;
@@ -38,9 +38,9 @@ class ForgotPasswordController extends GetxController {
       final forgotResponse = ForgotPasswordResponseModel.fromJson(response);
 
       if (forgotResponse.success) {
-        commonSnackbar(
-          title: "Success",
-          message: forgotResponse.message,
+        Get.snackbar(
+           "Success",
+           forgotResponse.message,
           backgroundColor: Colors.green,
         );
         LocalStorageService().saveToken(
@@ -48,16 +48,16 @@ class ForgotPasswordController extends GetxController {
         );
         Get.to(() => OtpVerifyView());
       } else {
-        commonSnackbar(
-          title: "Error",
-          message: forgotResponse.message,
+        Get.snackbar(
+           "Error",
+           forgotResponse.message,
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
-      commonSnackbar(
-        title: "Error",
-        message: "Something went wrong",
+      Get.snackbar(
+         "Error",
+         "Something went wrong",
         backgroundColor: Colors.red,
       );
     } finally {

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_recipes_afame/keys.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
-import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 Future<bool> startCardPayment({
@@ -66,27 +66,22 @@ Future<bool> startCardPayment({
         "&userId=$userId"
         "&amount=$amount";
 
-    final result =
-        await ApiService().get(confirmationUrl); // fullUrl support needed
+    final result = await ApiService().get(
+      confirmationUrl,
+    ); // fullUrl support needed
 
     if (result['success'] == true) {
-      commonSnackbar(
-        title: "Success",
-        message: "Subscription activated successfully!",
-      );
+      Get.snackbar("Success", "Subscription activated successfully!");
       return true;
     } else {
-      commonSnackbar(
-        title: "Failed",
-        message: result['message'] ?? "Confirmation failed",
-      );
+      Get.snackbar("Failed", result['message'] ?? "Confirmation failed");
     }
   } on StripeException catch (e) {
     log("StripeException: $e");
-    commonSnackbar(title: "Payment Cancelled", message: e.toString());
+    Get.snackbar("Payment Cancelled", e.toString());
   } catch (e) {
     log("Error in makePayment: $e");
-    commonSnackbar(title: "Error", message: e.toString());
+    Get.snackbar("Error", e.toString());
   }
 
   return false;

@@ -1,3 +1,4 @@
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/models/profile/my_recipe_model.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
@@ -23,9 +24,8 @@ class MyRecipesController extends GetxController {
 
       recipes.assignAll(myRecipeResponse.data.result);
       meta.value = myRecipeResponse.data.meta;
-
     } catch (e) {
-      Get.snackbar("Error", "Failed to load recipes");
+      showCustomSnackbar("Error", "Failed to load recipes");
       print("Error fetching recipes: $e");
     } finally {
       isLoading(false);

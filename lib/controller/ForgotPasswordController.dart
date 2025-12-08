@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/models/authentication/ForgotPasswordResponseModel.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/verify_otp_view.dart';
-
 
 class ForgotPasswordController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -18,9 +18,9 @@ class ForgotPasswordController extends GetxController {
     final email = emailController.text.trim();
 
     if (email.isEmpty || !email.contains("@")) {
-      Get.snackbar(
-         "Validation Error",
-         "Please enter a valid email",
+      showCustomSnackbar(
+        "Validation Error",
+        "Please enter a valid email",
         backgroundColor: Colors.red,
       );
       return;
@@ -38,9 +38,9 @@ class ForgotPasswordController extends GetxController {
       final forgotResponse = ForgotPasswordResponseModel.fromJson(response);
 
       if (forgotResponse.success) {
-        Get.snackbar(
-           "Success",
-           forgotResponse.message,
+        showCustomSnackbar(
+          "Success",
+          forgotResponse.message,
           backgroundColor: Colors.green,
         );
         LocalStorageService().saveToken(
@@ -48,16 +48,16 @@ class ForgotPasswordController extends GetxController {
         );
         Get.to(() => OtpVerifyView());
       } else {
-        Get.snackbar(
-           "Error",
-           forgotResponse.message,
+        showCustomSnackbar(
+          "Error",
+          forgotResponse.message,
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
-      Get.snackbar(
-         "Error",
-         "Something went wrong",
+      showCustomSnackbar(
+        "Error",
+        "Something went wrong",
         backgroundColor: Colors.red,
       );
     } finally {

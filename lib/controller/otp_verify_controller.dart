@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/models/authentication/otp_verify_model.dart';
 import 'package:food_recipes_afame/models/authentication/resend_model.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/reset_password_view.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
-
 
 class OtpVerifyController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -34,9 +34,9 @@ class OtpVerifyController extends GetxController {
     final otp = getOtp();
 
     if (otp.length != 4 || int.tryParse(otp) == null) {
-      Get.snackbar(
-         "Invalid OTP",
-         "Please enter a valid 4-digit numeric OTP",
+      showCustomSnackbar(
+        "Invalid OTP",
+        "Please enter a valid 4-digit numeric OTP",
         backgroundColor: Colors.red,
       );
       return;
@@ -54,9 +54,9 @@ class OtpVerifyController extends GetxController {
       // Store reset token for reset password screen
       await LocalStorageService().saveToken(result.resetPasswordToken);
 
-      Get.snackbar(
-         "Success",
-         result.message,
+      showCustomSnackbar(
+        "Success",
+        result.message,
         backgroundColor: Colors.green,
       );
 
@@ -64,15 +64,15 @@ class OtpVerifyController extends GetxController {
       Get.to(() => ResetPasswordView());
     } catch (e) {
       if (e is ApiException) {
-        Get.snackbar(
-           "Verification Failed",
-           e.message,
+        showCustomSnackbar(
+          "Verification Failed",
+          e.message,
           backgroundColor: Colors.red,
         );
       } else {
-        Get.snackbar(
-           "Error",
-           "Something went wrong",
+        showCustomSnackbar(
+          "Error",
+          "Something went wrong",
           backgroundColor: Colors.red,
         );
       }
@@ -97,29 +97,25 @@ class OtpVerifyController extends GetxController {
 
       final resendresponse = OtpResendResponseModel.fromJson(response);
       if (resendresponse.success) {
-        Get.snackbar(
-           "Success",
-           "OTP sent successfully",
+        showCustomSnackbar(
+          "Success",
+          "OTP sent successfully",
           backgroundColor: Colors.green,
         );
       } else {
-        Get.snackbar(
-           "Failed",
-           "Unknown Error Occourd",
+        showCustomSnackbar(
+          "Failed",
+          "Unknown Error Occourd",
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
       if (e is ApiException) {
-        Get.snackbar(
-           "Failed",
-           e.message,
-          backgroundColor: Colors.red,
-        );
+        showCustomSnackbar("Failed", e.message, backgroundColor: Colors.red);
       } else {
-        Get.snackbar(
-           "Error",
-           "Something went wrong",
+        showCustomSnackbar(
+          "Error",
+          "Something went wrong",
           backgroundColor: Colors.red,
         );
       }

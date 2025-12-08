@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/models/profile/change_password_model.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
@@ -21,12 +22,12 @@ class ChangePasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (oldPassword.isEmpty || newPassword.isEmpty || confirmPassword.isEmpty) {
-      Get.snackbar("Error", "All fields are required");
+      showCustomSnackbar("Error", "All fields are required");
       return;
     }
 
     if (newPassword != confirmPassword) {
-      Get.snackbar("Error", "New passwords do not match");
+      showCustomSnackbar("Error", "New passwords do not match");
       return;
     }
 
@@ -43,12 +44,16 @@ class ChangePasswordController extends GetxController {
 
       if (result.success) {
         Get.back();
-        Get.snackbar("Success", result.message, backgroundColor: Colors.green);
+        showCustomSnackbar(
+          "Success",
+          result.message,
+          backgroundColor: Colors.green,
+        );
       } else {
         throw result.message;
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      showCustomSnackbar("Error", e.toString());
     } finally {
       isLoading.value = false;
     }

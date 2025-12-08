@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
@@ -32,17 +33,14 @@ class EditProfileController extends GetxController {
     final phone = phoneController.text.trim();
 
     if (name.isEmpty || phone.isEmpty) {
-      Get.snackbar(
-         'Validation Error',
-         'All fields are required',
-      );
+      showCustomSnackbar('Validation Error', 'All fields are required');
       return;
     }
     if (phone.length < 10 || phone.length > 15) {
-      Get.snackbar(
-         'Validation Error',
-        
-            'Phone number must be at least 10 digits and at most 15 digits',
+      showCustomSnackbar(
+        'Validation Error',
+
+        'Phone number must be at least 10 digits and at most 15 digits',
       );
       return;
     }
@@ -79,9 +77,9 @@ class EditProfileController extends GetxController {
           responseData,
         );
         Get.back();
-        Get.snackbar(
-           "Success",
-           updatedProfile.message,
+        showCustomSnackbar(
+          "Success",
+          updatedProfile.message,
           backgroundColor: Colors.green,
         );
       } else {
@@ -89,7 +87,7 @@ class EditProfileController extends GetxController {
       }
     } catch (e) {
       log(e.toString());
-      Get.snackbar( "Error",  e.toString());
+      showCustomSnackbar("Error", e.toString());
     } finally {
       isLoading.value = false;
     }

@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/models/authentication/reset_password_response_model.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/signin_view.dart';
-
 
 class ResetPasswordController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -27,27 +27,27 @@ class ResetPasswordController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (newPassword.isEmpty || confirmPassword.isEmpty) {
-      Get.snackbar(
-         'Validation Error',
-         'Please fill in both fields.',
+      showCustomSnackbar(
+        'Validation Error',
+        'Please fill in both fields.',
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (newPassword.length < 6 || newPassword.length > 8) {
-      Get.snackbar(
-         'Invalid Password',
-         'Password must be 6 to 8 characters.',
+      showCustomSnackbar(
+        'Invalid Password',
+        'Password must be 6 to 8 characters.',
         backgroundColor: Colors.red,
       );
       return;
     }
 
     if (newPassword != confirmPassword) {
-      Get.snackbar(
-         'Mismatch',
-         'Passwords do not match.',
+      showCustomSnackbar(
+        'Mismatch',
+        'Passwords do not match.',
         backgroundColor: Colors.red,
       );
       return;
@@ -71,25 +71,21 @@ class ResetPasswordController extends GetxController {
       final resetResponse = ResetPasswordResponseModel.fromJson(response);
 
       if (resetResponse.success) {
-        Get.snackbar(
-           'Success',
-           resetResponse.message,
+        showCustomSnackbar(
+          'Success',
+          resetResponse.message,
           backgroundColor: Colors.green,
         );
         Get.offAll(() => SigninView());
       } else {
-        Get.snackbar(
-           'Failed',
-           resetResponse.message,
+        showCustomSnackbar(
+          'Failed',
+          resetResponse.message,
           backgroundColor: Colors.red,
         );
       }
     } catch (e) {
-      Get.snackbar(
-         'Error',
-         e.toString(),
-        backgroundColor: Colors.red,
-      );
+      showCustomSnackbar('Error', e.toString(), backgroundColor: Colors.red);
     } finally {
       isLoading.value = false;
     }

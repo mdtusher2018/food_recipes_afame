@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_recipes_afame/services/local_storage_service.dart';
@@ -71,7 +72,7 @@ class CreateRecipeController extends GetxController {
     if (pickedFile != null) {
       setImage(File(pickedFile.path));
     } else {
-      Get.snackbar("No image", "Image picking was cancelled");
+      showCustomSnackbar("No image", "Image picking was cancelled");
     }
   }
 
@@ -84,7 +85,7 @@ class CreateRecipeController extends GetxController {
     if (result != null && result.files.single.path != null) {
       setMusic(File(result.files.single.path!));
     } else {
-      Get.snackbar("No file", "Music file selection was cancelled");
+      showCustomSnackbar("No file", "Music file selection was cancelled");
     }
   }
 
@@ -142,14 +143,14 @@ class CreateRecipeController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.back();
-        Get.snackbar('Success', 'Recipe created successfully');
+        showCustomSnackbar('Success', 'Recipe created successfully');
       } else {
         print("Error response: ${response.body}");
-        Get.snackbar('Failed', 'Recipe creation failed');
+        showCustomSnackbar('Failed', 'Recipe creation failed');
       }
       log(response.body);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      showCustomSnackbar('Error', e.toString());
     } finally {
       submitting.value = false;
     }

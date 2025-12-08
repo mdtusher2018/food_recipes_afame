@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipes_afame/keys.dart';
 import 'package:food_recipes_afame/utils/colors.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +37,38 @@ Widget commonText(
   );
 }
 
-
+/// Custom snackbar function with flexible parameters
+void showCustomSnackbar(
+  String title,
+  String message, {
+  Color backgroundColor = Colors.blue,
+  Duration duration = const Duration(seconds: 3),
+}) {
+  scaffoldMessengerKey.currentState?.showSnackBar(
+    SnackBar(
+      content: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title styled with bold font and larger size
+            commonText(
+              title,
+              fontWeight: FontWeight.bold,
+              size: 16,
+              color: Colors.white,
+            ),
+            SizedBox(height: 5),
+            // Message styled with regular font weight and smaller size
+            commonText(message, color: Colors.white, size: 14),
+          ],
+        ),
+      ),
+      backgroundColor: backgroundColor,
+      duration: duration,
+    ),
+  );
+}
 
 Widget commonTextfieldWithTitle(
   String title,
@@ -226,30 +258,25 @@ Widget commonButton(
 
 Widget commonImageErrorWidget({
   double width = double.infinity,
-  
+
   double iconSize = 48,
   String message = "Image\nnot available",
 }) {
   return Container(
     width: width,
-    
-padding: EdgeInsets.all(16),
+
+    padding: EdgeInsets.all(16),
     color: Colors.grey.shade300,
     child: Stack(
-alignment: Alignment.center,
+      alignment: Alignment.center,
       children: [
         Icon(Icons.broken_image, size: iconSize, color: Colors.grey),
-   
-        commonText(
-          message,textAlign: TextAlign.center,
-          isBold: true
 
-        ),
+        commonText(message, textAlign: TextAlign.center, isBold: true),
       ],
     ),
   );
 }
-
 
 Widget buildOTPTextField(
   TextEditingController controller,

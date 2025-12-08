@@ -1,4 +1,5 @@
 import 'package:food_recipes_afame/models/notification/notification_model.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
@@ -20,7 +21,7 @@ class NotificationController extends GetxController {
       final model = NotificationModel.fromJson(response);
       notifications.assignAll(model.data.result);
     } catch (e) {
-      Get.snackbar("Error", "Failed to load notifications");
+      showCustomSnackbar("Error", "Failed to load notifications");
     } finally {
       isLoading(false);
     }

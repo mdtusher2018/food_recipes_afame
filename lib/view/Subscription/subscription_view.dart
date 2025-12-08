@@ -348,7 +348,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                               //   // Get.put(SubscriptionPurchaseController())
                               //   //     .purchaseSubscription(plan.id);
                               // } else {
-                              //   Get.snackbar(
+                              //   showCustomSnackbar(
                               //     title: "Payment Failed",
                               //     message: "Please try again.",
                               //   );

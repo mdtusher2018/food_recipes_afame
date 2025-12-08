@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_recipes_afame/keys.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
-import 'package:get/get.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:http/http.dart' as http;
 
 Future<bool> startCardPayment({
@@ -71,17 +71,17 @@ Future<bool> startCardPayment({
     ); // fullUrl support needed
 
     if (result['success'] == true) {
-      Get.snackbar("Success", "Subscription activated successfully!");
+      showCustomSnackbar("Success", "Subscription activated successfully!");
       return true;
     } else {
-      Get.snackbar("Failed", result['message'] ?? "Confirmation failed");
+      showCustomSnackbar("Failed", result['message'] ?? "Confirmation failed");
     }
   } on StripeException catch (e) {
     log("StripeException: $e");
-    Get.snackbar("Payment Cancelled", e.toString());
+    showCustomSnackbar("Payment Cancelled", e.toString());
   } catch (e) {
     log("Error in makePayment: $e");
-    Get.snackbar("Error", e.toString());
+    showCustomSnackbar("Error", e.toString());
   }
 
   return false;

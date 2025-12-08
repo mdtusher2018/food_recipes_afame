@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AFAME',
-
+      scaffoldMessengerKey: scaffoldMessengerKey,
       // 🔥 Localization implemented
       translations: AppTranslation(),
       locale: const Locale('fr', 'FR'), // Primary language (French)

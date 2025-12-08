@@ -1,5 +1,6 @@
 import 'package:food_recipes_afame/models/authentication/compleate_profile_model.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -33,15 +34,15 @@ class CompleteProfileController extends GetxController {
       final model = CompleteProfileResponseModel.fromJson(response);
       profileData.value = model.data;
 
-      Get.snackbar(
-         "Success",
-         model.message,
+      showCustomSnackbar(
+        "Success",
+        model.message,
         backgroundColor: const Color(0xFF4CAF50),
       );
     } catch (e) {
-      Get.snackbar(
-         "Error",
-         e.toString(),
+      showCustomSnackbar(
+        "Error",
+        e.toString(),
         backgroundColor: const Color(0xFFFF5252),
       );
     } finally {

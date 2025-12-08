@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/models/authentication/signup_response_model.dart';
 import 'package:food_recipes_afame/services/api_service.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 import 'package:get/get.dart';
 import 'package:food_recipes_afame/utils/ApiEndpoints.dart';
 import 'package:food_recipes_afame/view/Authentication/email_verify_view.dart';
@@ -47,7 +48,7 @@ class SignupController extends GetxController {
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      Get.snackbar(
+      showCustomSnackbar(
         "Validation Error",
         "All fields are required",
         backgroundColor: Colors.red,
@@ -56,7 +57,7 @@ class SignupController extends GetxController {
     }
 
     if (fullName.length < 3) {
-      Get.snackbar(
+      showCustomSnackbar(
         "Validation Error",
         "Full name must be at least 3 characters",
         backgroundColor: Colors.red,
@@ -65,7 +66,7 @@ class SignupController extends GetxController {
     }
 
     if (!_isValidEmail(email)) {
-      Get.snackbar(
+      showCustomSnackbar(
         "Validation Error",
         "Invalid email format",
         backgroundColor: Colors.red,
@@ -74,7 +75,7 @@ class SignupController extends GetxController {
     }
 
     if (password.length < 8) {
-      Get.snackbar(
+      showCustomSnackbar(
         "Validation Error",
         "Password must be at least 8 characters",
         backgroundColor: Colors.red,
@@ -83,7 +84,7 @@ class SignupController extends GetxController {
     }
 
     if (password != confirmPassword) {
-      Get.snackbar(
+      showCustomSnackbar(
         "Validation Error",
         "Passwords do not match",
         backgroundColor: Colors.red,
@@ -92,7 +93,7 @@ class SignupController extends GetxController {
     }
 
     if (!isTermsAccepted.value) {
-      Get.snackbar(
+      showCustomSnackbar(
         "Terms Not Accepted",
         "You must agree with Terms and Conditions",
         backgroundColor: Colors.red,
@@ -119,9 +120,13 @@ class SignupController extends GetxController {
       Get.to(() => EmailVerifyView());
     } catch (e) {
       if (e is ApiException) {
-        Get.snackbar("Signup Failed", e.message, backgroundColor: Colors.red);
+        showCustomSnackbar(
+          "Signup Failed",
+          e.message,
+          backgroundColor: Colors.red,
+        );
       } else {
-        Get.snackbar(
+        showCustomSnackbar(
           "Error",
           "Something went wrong",
           backgroundColor: Colors.red,

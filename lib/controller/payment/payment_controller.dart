@@ -1,4 +1,5 @@
 import 'package:food_recipes_afame/models/payment/punches_model.dart';
+import 'package:food_recipes_afame/view/shared/commonWidgets.dart';
 
 import 'package:get/get.dart';
 
@@ -20,17 +21,17 @@ class SubscriptionPurchaseController extends GetxController {
       if (response['success'] == true) {
         final model = SubscriptionPurchaseResponseModel.fromJson(response);
         purchaseResponse.value = model;
-        Get.snackbar( "Success",  model.message);
+        showCustomSnackbar("Success", model.message);
         return true;
       } else {
-        Get.snackbar(
-           "Failed",
-           response['message'] ?? "Something went wrong",
+        showCustomSnackbar(
+          "Failed",
+          response['message'] ?? "Something went wrong",
         );
         return false;
       }
     } catch (e) {
-      Get.snackbar( "Error",  e.toString());
+      showCustomSnackbar("Error", e.toString());
       return false;
     } finally {
       isLoading(false);

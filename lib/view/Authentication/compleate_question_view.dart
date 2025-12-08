@@ -130,7 +130,7 @@ class _CompleateQuestionnairePageState
               onTap:
                   selectedOptionIndex == null
                       ? () {
-                        Get.snackbar("Empty", "Please sellect an option");
+                        showCustomSnackbar("Empty", "Please sellect an option");
                       }
                       : () {
                         final selected = widget.options[selectedOptionIndex!];

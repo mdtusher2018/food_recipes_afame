@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food_recipes_afame/controller/SigninController.dart';
 import 'package:food_recipes_afame/services/local_storage_service.dart';
@@ -19,9 +20,11 @@ class _SigninViewState extends State<SigninView> {
   final SigninController controller = Get.put(SigninController());
 
   final emailController = TextEditingController(
-    text: "amina.rahman@example.com",
+    text: kDebugMode ? "amina.rahman@example.com" : null,
   );
-  final passwordController = TextEditingController(text: "hello123");
+  final passwordController = TextEditingController(
+    text: kDebugMode ? "hello12345" : null,
+  );
 
   @override
   void initState() {
